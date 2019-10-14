@@ -8,7 +8,7 @@
     var menuhtml = '';
     $.ajax({
         type: "get",
-        url: "/LayuiCMS/GetMenuList",
+        url: "/Menu/GetMenuTree",
         success: function (result) {
             console.log(result);
             menudata = result;
