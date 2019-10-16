@@ -37,6 +37,7 @@ namespace TestMS
             services.AddDbContext<EfContext>(x => x.UseSqlServer(Configuration["Connectionstring:Default"]));
 
             services.AddTransient<IMenuService, MenuService>();
+            services.AddTransient<IEnterpriseService, EnterpriseService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

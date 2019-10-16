@@ -17,8 +17,10 @@ namespace TestMS.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MenuConfig());
+            modelBuilder.ApplyConfiguration(new EnterpriseConfig());
         }
 
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Enterprise> Enterprises { get; set; }
     }
 }
