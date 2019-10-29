@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestMS.Entities;
 using TestMS.Models.Dtos;
+using TestMS.Models.Publics;
 
 namespace TestMS.Interfaces
 {
     public interface IEnterpriseService
     {
         List<Enterprise> List();
+
+        ResultModel<Enterprise> List(PageQueryModel query);
 
         Enterprise Add(EnterpriseCreateDto dto);
     }

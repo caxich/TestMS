@@ -9,7 +9,7 @@
     //新闻列表
     var tableIns = table.render({
         elem: '#newsList',
-        url: '/LayuiCMS/getTable',
+        url: '/Enterprise/PageList',
         cellMinWidth: 95,
         page: true,
         //height: 400,
@@ -19,20 +19,11 @@
         id: "newsListTable",
         cols: [[
             { type: "checkbox", fixed: "left", width: 50 },
-            { field: 'newsId', title: 'ID', width: 60, align: "center" },
-            { field: 'newsName', title: '文章标题', width: 350 },
-            { field: 'newsAuthor', title: '发布者', align: 'center' },
-            //{ field: 'newsStatus', title: '发布状态', align: 'center', templet: "#newsStatus" },
-            //{ field: 'newsLook', title: '浏览权限', align: 'center' },
-            //{
-            //    field: 'newsTop', title: '是否置顶', align: 'center', templet: function (d) {
-            //        return '<input type="checkbox" name="newsTop" lay-filter="newsTop" lay-skin="switch" lay-text="是|否" ' + d.newsTop + '>'
-            //    }
-            //},
+            { field: 'name', title: '企业名称', width: 260, align: "center" },
+            { field: 'organCode', title: '组织机构代码', width: 150 },
+            { field: 'address', title: '地址', align: 'center', width: 280 },
             {
-                field: 'newsTime', title: '发布时间', align: 'center', minWidth: 110, templet: function (d) {
-                    return d.newsTime.substring(0, 10);
-                }
+                field: 'typeCode', title: '行业代码', align: 'center', minWidth: 110
             },
             //{ title: '操作', width: 170, templet: '#newsListBar', fixed: "right", align: "center" }
         ]]
@@ -43,7 +34,7 @@
             title: "添加",
             type: 2,
             area: ['900px', '500px'],
-            content: "/LayuiCMS/LayerAdd",
+            content: "/Enterprise/AddIndex",
             success: function (layero, index) {
                 //var body = layui.layer.getChildFrame('body', index);
             }

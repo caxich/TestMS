@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Models.Dtos;
+using TestMS.Models.Publics;
 
 namespace TestMS.Controllers
 {
@@ -22,6 +24,11 @@ namespace TestMS.Controllers
             return View();
         }
 
+        public IActionResult AddIndex()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Add(EnterpriseCreateDto dto)
         {
@@ -32,6 +39,12 @@ namespace TestMS.Controllers
         public IActionResult List()
         {
             return new JsonResult(_enterpriseService.List());
+        }
+
+        [HttpGet]
+        public IActionResult PageList(PageQueryModel query)
+        {
+            return new JsonResult(_enterpriseService.List(query));
         }
     }
 }

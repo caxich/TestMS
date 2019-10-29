@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Models.Dtos;
+using TestMS.Models.Publics;
 
 namespace TestMS.Services
 {
@@ -40,6 +41,22 @@ namespace TestMS.Services
         public List<Enterprise> List()
         {
             return _efContext.Enterprises.ToList();
+        }
+
+        public ResultModel<Enterprise> List(PageQueryModel query)
+        {
+            var list = _efContext.Enterprises.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.Search))
+            {
+                list = list.Where(x => x.Name.Contains(query.Search));
+            }
+
+            var result = new ResultModel<Enterprise>();
+            result.Data.AddRange(list.Skip((query.Page - 1) * query.Limit).Take(query.Limit).ToList());
+            result.Code = 0;
+            result.Msg = "成功";
+            result.Count = list.Count();
+            return result;
         }
     }
 }

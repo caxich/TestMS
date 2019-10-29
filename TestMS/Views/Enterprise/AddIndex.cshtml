@@ -1,0 +1,157 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>文章添加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="~/testms/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="~/testms/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+    <form class="layui-form layui-row layui-col-space10">
+        <div class="layui-col-md10">
+            <div class="layui-row layui-col-space10">
+                <div class="layui-col-md9">
+                    <div class="layui-form-item magt3">
+                        <label class="layui-form-label">企业名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" id="name" name="name" placeholder="请输入标题" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">摘要</label>
+                        <div class="layui-input-block">
+                            <textarea class="layui-textarea" id="abstContent" name="abstContent" placeholder="请输入摘要"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <div class="layui-upload-list thumbBox mag0 magt3">
+                        <img class="layui-upload-img thumbImg" />
+                    </div>
+                </div>
+
+                <div class="layui-col-md5">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">组织机构<br />代码</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" id="organCode" name="organCode" />
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md7">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">行业代码</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" id="typeCode" name="typeCode" />
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="address" name="address" />
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <label class="layui-form-label">GPS经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="gPSLongitude" name="gPSLongitude" />
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <label class="layui-form-label">GPS纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="gPSLatitude" name="gPSLatitude" />
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <label class="layui-form-label">百度经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="bmapLongitude" name="bmapLongitude" />
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <label class="layui-form-label">百度纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="bmapLatitude" name="bmapLatitude" />
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <label class="layui-form-label">排放量</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="discharge" name="discharge"/>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <label class="layui-form-label">污染物浓度</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="concentration" name="concentration"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类别</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="news" title="新闻" />
+                        <input type="checkbox" name="goods" title="产品" />
+                        <input type="checkbox" name="tech" title="技术" />
+                        <input type="checkbox" name="metro" title="轨道" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="share" value="MIT" title="MIT协议" checked />
+                        <input type="radio" name="share" value="BSD" title="BSD协议" />
+                    </div>
+                </div>
+                <div class="layui-col-md5">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">城市</label>
+                        <div class="layui-input-block">
+                            <select name="city" lay-verify="required">
+                                <option value=""></option>
+                                <option value="1">北京</option>
+                                <option value="2">多伦多</option>
+                                <option value="3">堪培拉</option>
+                                <option value="4">布里斯班</option>
+                                <option value="5">麦加</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md7"></div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否公开</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="ispublic" lay-skin="switch" lay-text="开启|关闭" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <a class="layui-btn layui-btn-normal" lay-filter="addArticle" lay-submit="">
+                        @*<i class="layui-icon">&#xe609;</i>*@
+                        发布
+                    </a>
+                    <a class="layui-btn layui-btn-normal" layui-submit>返回</a>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md2">
+        </div>
+    </form>
+    <script type="text/javascript" src="~/testms/layui/layui.js"></script>
+    <script type="text/javascript" src="~/testms/js/Add.js"></script>
+</body>
+</html>
