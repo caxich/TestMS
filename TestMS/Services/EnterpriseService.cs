@@ -17,7 +17,7 @@ namespace TestMS.Services
             _efContext = efContext;
         }
 
-        public Enterprise Add(EnterpriseCreateDto dto)
+        public ResultModel<Enterprise> Add(EnterpriseCreateDto dto)
         {
             var model = new Enterprise
             {
@@ -35,7 +35,16 @@ namespace TestMS.Services
             };
             _efContext.Enterprises.Add(model);
             _efContext.SaveChanges();
-            return model;
+
+            var result = new ResultModel<Enterprise>()
+            {
+                Code = 0,
+                Msg = "成功",
+                Count = 1,
+            };
+
+            result.Data.AddRange(new List<Enterprise>() { model });
+            return result;
         }
 
         public List<Enterprise> List()

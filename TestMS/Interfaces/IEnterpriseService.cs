@@ -14,6 +14,6 @@ namespace TestMS.Interfaces
 
         ResultModel<Enterprise> List(PageQueryModel query);
 
-        Enterprise Add(EnterpriseCreateDto dto);
+        ResultModel<Enterprise> Add(EnterpriseCreateDto dto);
     }
 }

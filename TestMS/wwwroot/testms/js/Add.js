@@ -28,8 +28,16 @@
             "concentration": $('#concentration').val(),
             //"abstContent": $('#abstContent').val()
         }, function (res) {
+            console.log("add obj:");
+            console.log(res);
+            console.log("layer add index:");
+            var closeindex = localStorage.getItem('addIndex');
             if (res == undefined || res == null || !res) {
                 layer.msg("保存失败");
+            }
+            if (res.code == 0) {
+                layer.msg(res.msg);
+                parent.layer.close(closeindex);
             }
         })
         return false;
