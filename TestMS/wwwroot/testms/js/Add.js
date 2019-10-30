@@ -1,4 +1,6 @@
-﻿layui.use(['form', 'upload', 'layer'], function () {
+﻿var closeindex = localStorage.getItem('addIndex');
+
+layui.use(['form', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
         $ = layui.jquery;
@@ -31,7 +33,6 @@
             console.log("add obj:");
             console.log(res);
             console.log("layer add index:");
-            var closeindex = localStorage.getItem('addIndex');
             if (res == undefined || res == null || !res) {
                 layer.msg("保存失败");
             }
@@ -41,5 +42,9 @@
             }
         })
         return false;
+    })
+
+    $(document).on('click', '#btn-return', function () {
+        parent.layer.close(closeindex)
     })
 })
