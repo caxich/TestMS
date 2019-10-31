@@ -47,6 +47,23 @@ namespace TestMS.Services
             return result;
         }
 
+        public ResultModel Delete(DeleteModel Dels)
+        {
+            //var ids = new List<long>();
+            //foreach (var item in Ids)
+            //{
+            //    ids.Add(long.Parse(item));
+            //}
+            var entities = _efContext.Enterprises.Where(x => Dels.Ids.Contains(x.Id));
+            _efContext.RemoveRange(entities);            
+            return new ResultModel
+            {
+                Code = 0,
+                Count = entities.Count(),
+                Msg = "删除成功"
+            };
+        }
+
         public List<Enterprise> List()
         {
             return _efContext.Enterprises.ToList();

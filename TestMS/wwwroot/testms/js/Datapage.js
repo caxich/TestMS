@@ -71,4 +71,31 @@
         //})
         return false;
     })
+
+    $(".delAll_btn").click(function () {
+        var checks = table.checkStatus('newsListTable'),
+            data = checks.data,
+            dels = [],
+            querystring="?";
+        if (data.length > 0) {
+            for (var i in data) {
+                dels.push(data[i].id);
+                querystring += "Ids=" + data[i].id;
+            }
+
+            layer.confirm('确定删除选中的记录？', { icon: 3, title: '提示信息' }, function (index) {
+                $.get("/Enterprise/Delete" + querystring, function (data) {
+                    if (data && data != undefined && data.code == 0) {
+                        tableIns.reload();
+                        layer.close(index);
+                    }
+                    else {
+                        layer.msg("删除失败");
+                    }
+                })
+            })
+        }
+
+
+    })
 })

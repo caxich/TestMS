@@ -7,6 +7,7 @@ using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Models.Dtos;
 using TestMS.Models.Publics;
+using Newtonsoft.Json;
 
 namespace TestMS.Controllers
 {
@@ -45,6 +46,18 @@ namespace TestMS.Controllers
         public IActionResult PageList(PageQueryModel query)
         {
             return new JsonResult(_enterpriseService.List(query));
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="dels"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Delete(DeleteModel dels)
+        {
+            //var delList = JsonConvert.DeserializeObject<DeleteModel>
+            return new JsonResult(_enterpriseService.Delete(dels));
         }
     }
 }

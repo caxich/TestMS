@@ -15,5 +15,7 @@ namespace TestMS.Interfaces
         ResultModel<Enterprise> List(PageQueryModel query);
 
         ResultModel<Enterprise> Add(EnterpriseCreateDto dto);
+
+        ResultModel Delete(DeleteModel Ids);
     }
 }
