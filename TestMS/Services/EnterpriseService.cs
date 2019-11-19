@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +13,12 @@ namespace TestMS.Services
     public class EnterpriseService : IEnterpriseService
     {
         private readonly EfContext _efContext;
-        public EnterpriseService(EfContext efContext)
+        private readonly IMapper _mapper;
+
+        public EnterpriseService(EfContext efContext,IMapper mapper)
         {
             _efContext = efContext;
+            _mapper = mapper;
         }
 
         public ResultModel<Enterprise> Add(EnterpriseCreateDto dto)
@@ -54,8 +58,10 @@ namespace TestMS.Services
             //{
             //    ids.Add(long.Parse(item));
             //}
+            //TODO 精度丢失，需加automapper
             var entities = _efContext.Enterprises.Where(x => Dels.Ids.Contains(x.Id));
-            _efContext.RemoveRange(entities);            
+            _efContext.RemoveRange(entities);
+            _efContext.SaveChanges();
             return new ResultModel
             {
                 Code = 0,
@@ -69,7 +75,7 @@ namespace TestMS.Services
             return _efContext.Enterprises.ToList();
         }
 
-        public ResultModel<Enterprise> List(PageQueryModel query)
+        public ResultModel<EnterprisesResp> List(PageQueryModel query)
         {
             var list = _efContext.Enterprises.AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.Search))
@@ -77,8 +83,9 @@ namespace TestMS.Services
                 list = list.Where(x => x.Name.Contains(query.Search));
             }
 
-            var result = new ResultModel<Enterprise>();
-            result.Data.AddRange(list.Skip((query.Page - 1) * query.Limit).Take(query.Limit).ToList());
+            var result = new ResultModel<EnterprisesResp>();
+            var resultList = _mapper.Map<List<Enterprise>, List<EnterprisesResp>>(list.ToList());
+            result.Data.AddRange(resultList.Skip((query.Page - 1) * query.Limit).Take(query.Limit).ToList());
             result.Code = 0;
             result.Msg = "成功";
             result.Count = list.Count();

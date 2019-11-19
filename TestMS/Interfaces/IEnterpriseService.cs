@@ -12,7 +12,7 @@ namespace TestMS.Interfaces
     {
         List<Enterprise> List();
 
-        ResultModel<Enterprise> List(PageQueryModel query);
+        ResultModel<EnterprisesResp> List(PageQueryModel query);
 
         ResultModel<Enterprise> Add(EnterpriseCreateDto dto);
 

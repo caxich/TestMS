@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Services;
+using AutoMapper;
+using TestMS.Tools;
 
 namespace TestMS
 {
@@ -35,6 +37,8 @@ namespace TestMS
             });
 
             services.AddDbContext<EfContext>(x => x.UseSqlServer(Configuration["Connectionstring:Default"]));
+
+            services.AddAutoMapper(typeof(MapperProfile));
 
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<IEnterpriseService, EnterpriseService>();
