@@ -59,7 +59,7 @@ namespace TestMS.Services
             //    ids.Add(long.Parse(item));
             //}
             //TODO 精度丢失，需加automapper
-            var entities = _efContext.Enterprises.Where(x => Dels.Ids.Contains(x.Id));
+            var entities = _efContext.Enterprises.Where(x => Dels.Ids.Contains(x.Id)).ToList();
             _efContext.RemoveRange(entities);
             _efContext.SaveChanges();
             return new ResultModel
@@ -90,6 +90,14 @@ namespace TestMS.Services
             result.Msg = "成功";
             result.Count = list.Count();
             return result;
+        }
+
+        public bool Update(EnterpriseUpdateDto dto)
+        {
+            var data = _mapper.Map<EnterpriseUpdateDto, Enterprise>(dto);
+            _efContext.Update(data);
+            _efContext.SaveChanges();
+            return true;
         }
     }
 }

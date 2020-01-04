@@ -1,4 +1,5 @@
 ﻿var closeindex = localStorage.getItem('addIndex');
+var isEdit = localStorage.getItem('isEdit');
 
 layui.use(['form', 'upload', 'layer'], function () {
     var form = layui.form,
@@ -17,7 +18,9 @@ layui.use(['form', 'upload', 'layer'], function () {
 
     form.on("submit(addArticle)", function (data) {
         console.log(data.field);
-        $.post("/Enterprise/Add", {
+        var url = isEdit == 2 ? "/Enterprise/Update" : "/Enterprise/Add";
+        $.post(url, {
+            "Id": $('#idEnter').val(),
             "Name": $('#name').val(),
             "organCode": $('#organCode').val(),
             "typeCode": $('#typeCode').val(),
@@ -33,11 +36,16 @@ layui.use(['form', 'upload', 'layer'], function () {
             console.log("add obj:");
             console.log(res);
             console.log("layer add index:");
+            console.log(closeindex);
             if (res == undefined || res == null || !res) {
                 layer.msg("保存失败");
             }
             if (res.code == 0) {
                 layer.msg(res.msg);
+                parent.layer.close(closeindex);
+            }
+            if (res == true) {
+                layer.msg("保存成功");
                 parent.layer.close(closeindex);
             }
         })

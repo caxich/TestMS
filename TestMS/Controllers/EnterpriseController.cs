@@ -36,6 +36,12 @@ namespace TestMS.Controllers
             return new JsonResult(_enterpriseService.Add(dto));
         }
 
+        [HttpPost]
+        public IActionResult Update(EnterpriseUpdateDto dto)
+        {
+            return new JsonResult(_enterpriseService.Update(dto));
+        }
+
         [HttpGet]
         public IActionResult List()
         {

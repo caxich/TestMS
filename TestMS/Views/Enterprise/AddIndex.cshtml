@@ -22,11 +22,19 @@
     <form class="layui-form layui-row layui-col-space10">
         <div class="layui-col-md10">
             <div class="layui-row layui-col-space10">
+                @*style="display:none"*@
+                <div class="layui-form-item">
+                    <label class="layui-form-label">主键id</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="idEnter" name="idEnter" />
+                    </div>
+                </div>
+
                 <div class="layui-col-md9">
                     <div class="layui-form-item magt3">
                         <label class="layui-form-label">企业名称</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="name" name="name" placeholder="请输入标题" />
+                            <input type="text" class="layui-input" lay-verify="required" id="name" name="name" placeholder="请输入标题" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -46,7 +54,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">组织机构<br />代码</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="organCode" name="organCode" />
+                            <input type="text" class="layui-input" lay-verify="required" id="organCode" name="organCode" />
                         </div>
                     </div>
                 </div>
@@ -67,37 +75,37 @@
                 <div class="layui-col-md3">
                     <label class="layui-form-label">GPS经度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="gPSLongitude" name="gPSLongitude" />
+                        <input type="text" class="layui-input" lay-verify="required" id="gPSLongitude" name="gPSLongitude" />
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label class="layui-form-label">GPS纬度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="gPSLatitude" name="gPSLatitude" />
+                        <input type="text" class="layui-input" lay-verify="required" id="gPSLatitude" name="gPSLatitude" />
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label class="layui-form-label">百度经度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="bmapLongitude" name="bmapLongitude" />
+                        <input type="text" class="layui-input" lay-verify="required" id="bmapLongitude" name="bmapLongitude" />
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label class="layui-form-label">百度纬度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="bmapLatitude" name="bmapLatitude" />
+                        <input type="text" class="layui-input" lay-verify="required" id="bmapLatitude" name="bmapLatitude" />
                     </div>
                 </div>
                 <div class="layui-col-md6">
                     <label class="layui-form-label">排放量</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="discharge" name="discharge" />
+                        <input type="text" class="layui-input" lay-verify="required" id="discharge" name="discharge" />
                     </div>
                 </div>
                 <div class="layui-col-md6">
                     <label class="layui-form-label">污染物浓度</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="concentration" name="concentration" />
+                        <input type="text" class="layui-input" lay-verify="required" id="concentration" name="concentration" />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -120,7 +128,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">城市</label>
                         <div class="layui-input-block">
-                            <select name="city" lay-verify="required">
+                            <select name="city">
                                 <option value=""></option>
                                 <option value="1">北京</option>
                                 <option value="2">多伦多</option>

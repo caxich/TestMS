@@ -17,5 +17,7 @@ namespace TestMS.Interfaces
         ResultModel<Enterprise> Add(EnterpriseCreateDto dto);
 
         ResultModel Delete(DeleteModel Ids);
+        bool Update(EnterpriseUpdateDto dto);
+
     }
 }
