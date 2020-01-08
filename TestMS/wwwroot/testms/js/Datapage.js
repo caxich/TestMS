@@ -101,24 +101,35 @@
         var data = obj.data;
         if (layEvent == 'edit') {
             addNews(data);
-        } else {
+        } else if (layEvent == 'del') {
+            if (data && data.id) {
+                var datas = new Array();
+                datas.push(data);
+                del(datas);
+            }
+        }
+        else {
             layer.alter("无实现");
         }
     })
 
     $(".delAll_btn").click(function () {
         var checks = table.checkStatus('newsListTable'),
-            data = checks.data,
-            dels = [],
-            querystring="?";
-        if (data.length > 0) {
-            for (var i in data) {
-                dels.push(data[i].id);
+            data = checks.data;
+        del(data);
+    })
+
+    function del(ids) {
+        var dels = [],
+            querystring = "?";
+        if (ids.length > 0) {
+            for (var i in ids) {
+                dels.push(ids[i].id);
                 if (i > 0) {
-                    querystring += "&Ids=" + data[i].id;
+                    querystring += "&Ids=" + ids[i].id;
                 }
                 else {
-                    querystring += "Ids=" + data[i].id;
+                    querystring += "Ids=" + ids[i].id;
                 }
             }
 
@@ -134,5 +145,5 @@
                 })
             })
         }
-    })
+    }
 })

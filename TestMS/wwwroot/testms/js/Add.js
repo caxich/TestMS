@@ -48,6 +48,7 @@ layui.use(['form', 'upload', 'layer'], function () {
                 layer.msg("保存成功");
                 parent.layer.close(closeindex);
             }
+            window.parent.location.reload();
         })
         return false;
     })
