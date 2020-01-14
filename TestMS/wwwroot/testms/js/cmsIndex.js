@@ -70,8 +70,8 @@
     function addTab(_this) {
         tabIdIndex++;
         layid = new Date().getTime();
-        var tabtitle = '<i class="layui-icon">' + menudata[1].icon + '</i>';
-        tabtitle += '<cite>' + menudata[1].title + '</cite>';
+        var tabtitle = '<i class="layui-icon">' + _this.find("i.layui-icon").text() + '</i>';
+        tabtitle += '<cite>' + _this.find("cite").text() + '</cite>';
         tabtitle += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + layid + '">&#x1006;</i>';
         element.tabAdd('bodyTab', {
             title: tabtitle,
