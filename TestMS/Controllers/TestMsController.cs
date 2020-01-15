@@ -12,5 +12,10 @@ namespace TestMS.Controllers
         {
             return View();
         }
+
+        public IActionResult HomeIndex()
+        {
+            return View();
+        }
     }
 }
