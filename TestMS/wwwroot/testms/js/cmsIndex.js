@@ -1,41 +1,47 @@
 ﻿var menu = [];
-layui.use(['form', 'element', 'layer', 'jquery'], function () {
+var $, tab, dataStr, layer;
+
+layui.config({
+    base: "js/models/"
+}).extend({
+    "bodyTab": "bodyTab"
+})
+
+layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
     var form = layui.form,
         element = layui.element;
     $ = layui.$;
     layer = parent.layer === undefined ? layui.layer : top.layer;
+    tab = layui.bodyTab({
+        openTabNum: "50",  //最大可打开窗口数量
+        url: "/Menu/GetMenuTree" //获取菜单json地址
+    })
 
-    var menudata;
-    var menuhtml = '';
-    $.ajax({
-        type: "get",
-        url: "/Menu/GetMenuTree",
-        success: function (result) {
-            console.log(result);
-            menudata = result;
-            for (var i = 0; i < result.length; i++) {
-                if (result[i].spread && result[i].spread == undefined) {
-                    menuhtml += '<li class="layui-nav-item layui-nav-itemed">';
-                } else {
-                    menuhtml += '<li class="layui-nav-item">';
-                }
-                if (result[i].target != undefined && result[i].target == "_blank") {
-                    menuhtml += '<a data-url="' + result[i].href + '" target="' + result[i].target + '">';
-                }
-                else {
-                    menuhtml += '<a data-url="' + result[i].href + '">';
-                }
-                if (result[i].icon != undefined && result[i].icon != '') {
-                    menuhtml += '<i class="layui-icon">' + result[i].icon + '</i>';
-                }
-                menuhtml += '<cite>' + result[i].title + '</cite>';
-                menuhtml += '</a></li>';
-                console.log("result" + i + ": " + menuhtml);
+    function getData(json) {
+        $.getJSON(tab.tabConfig.url, function (data) {
+            if (data) {
+                //dataStr全局变量，用于保存左侧菜单
+                dataStr = data;
+                //执行bodyTab组件的render方法重新渲染左侧菜单
+                tab.render();
+            } else {
+                console.log("menu data is null");
             }
-        },
-        async: false
-    });
-    $(".navBar ul").html(menuhtml);
+        })
+    }
+
+    //获取左侧菜单
+    getData();
+
+    // 添加新窗口
+    $("body").on("click", ".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')", function () {
+        //如果不存在子级
+        if ($(this).siblings().length == 0) {
+            addTab($(this));
+            $('body').removeClass('site-mobile');  //移动端点击菜单关闭菜单层
+        }
+        $(this).parent("li").siblings().removeClass("layui-nav-itemed");
+    })
 
     //隐藏左侧导航
     $(".hideMenu").click(function () {
@@ -58,43 +64,6 @@ layui.use(['form', 'element', 'layer', 'jquery'], function () {
             layer.msg("缓存清除成功！");
         }, 1000);
     })
-
-    // 添加新窗口
-    $("body").on("click", ".navBar .layui-nav .layui-nav-item a", function () {
-        addTab($(this));
-    })
-
-    
-    //打开新窗口
-    var tabIdIndex = 0;
-    var layid;
-    function addTab(_this) {
-        if (window.sessionStorage.getItem("menu")) {
-            menu = JSON.parse(window.sessionStorage.getItem("menu"));
-        }
-
-        tabIdIndex++;
-        layid = new Date().getTime();
-        var tabtitle = '<i class="layui-icon">' + _this.find("i.layui-icon").text() + '</i>';
-        tabtitle += '<cite>' + _this.find("cite").text() + '</cite>';
-        tabtitle += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + layid + '">&#x1006;</i>';
-        element.tabAdd('bodyTab', {
-            title: tabtitle,
-            content: "<iframe src='" + _this.attr("data-url") + "' data-id='" + tabIdIndex + "'></iframe>",
-            id: layid
-        });
-
-        //缓存当前tab页信息
-        var currentMenu = {
-            "icon": _this.find("i.layui-icon").text(),
-            "title": _this.find("cite").text(),
-            "href": _this.attr("data-url"),
-            "layId": new Date().getTime()
-        }
-        menu.push(currentMenu);
-        window.sessionStorage.setItem("menu", JSON.stringify(menu)); //打开的窗口
-        element.tabChange('bodyTab', layid);
-    }
 
     $("body").on("click", ".top_tab li i.layui-tab-close", function () {
         element.tabDelete("bodyTab", $(this).parent("li").attr("lay-id")).init();
@@ -164,4 +133,10 @@ layui.use(['form', 'element', 'layer', 'jquery'], function () {
     })
 
 })
+
+//打开新窗口
+function addTab(_this) {
+    tab.tabAdd(_this);
+}
+
 

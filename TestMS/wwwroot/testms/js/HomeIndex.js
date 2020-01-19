@@ -23,3 +23,29 @@ function getLangDate() {
     document.getElementById("nowTime").innerHTML = "亲爱的CXC，" + timeValue + "好！ 欢迎使用TestCMS模版。当前时间为： " + newDate + "　" + week;
     setTimeout("getLangDate()", 1000);
 }
+
+layui.use(['form', 'element', 'layer', 'jquery'], function () {
+    var form = layui.form,
+        layer = parent.layer === undefined ? layui.layer : top.layer,
+        element = layui.element;
+    $ = layui.jquery;
+
+    //icon动画
+    $(".panel a").hover(function () {
+        $(this).find(".layui-anim").addClass("layui-anim-scaleSpring");
+    }, function () {
+        $(this).find(".layui-anim").removeClass("layui-anim-scaleSpring");
+    })
+    $(".panel_click a").click(function () {
+        console.log("panel href:" + $(this).attr("data-url"));
+        window.location.href = $(this).attr("data-url");
+    })
+
+    $(".panel_tab a").click(function () {
+        console.log("panel href:" + $(this).attr("data-url"));
+        console.log("parent:" + parent);
+        parent.addTab($(this));
+    })
+
+})
+
