@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\testms\js\models\" />
+    <Folder Include="wwwroot\testms\html\" />
+    <Folder Include="wwwroot\testms\json\" />
   </ItemGroup>
 
 </Project>

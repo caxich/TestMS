@@ -65,8 +65,12 @@ namespace TestMS
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=TestMs}/{action=index}/{id?}"
+                    //,
+                    //defaults: new { controller = "TestMs", action = "index" }
+                    );
             });
+            //app.UseMvcWithDefaultRoute();
         }
     }
 }

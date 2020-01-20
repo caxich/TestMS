@@ -2,9 +2,10 @@
 var $, tab, dataStr, layer;
 
 layui.config({
-    base: "js/models/"
+    base: "testms/js/models/"
 }).extend({
-    "bodyTab": "bodyTab"
+    "bodyTab": "bodyTab",
+    "address": "address"
 })
 
 layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
@@ -67,69 +68,6 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
 
     $("body").on("click", ".top_tab li i.layui-tab-close", function () {
         element.tabDelete("bodyTab", $(this).parent("li").attr("lay-id")).init();
-    })
-
-    //刷新当前
-    $(".refresh").on("click", function () {  //此处添加禁止连续点击刷新一是为了降低服务器压力，另外一个就是为了防止超快点击造成chrome本身的一些js文件的报错(不过貌似这个问题还是存在，不过概率小了很多)
-        if ($(this).hasClass("refreshThis")) {
-            $(this).removeClass("refreshThis");
-            $(".clildFrame .layui-tab-item.layui-show").find("iframe")[0].contentWindow.location.reload();
-            setTimeout(function () {
-                $(".refresh").addClass("refreshThis");
-            }, 2000)
-        } else {
-            layer.msg("您点击的速度超过了服务器的响应速度，还是等两秒再刷新吧！");
-        }
-    })
-
-    //关闭其他
-    $(".closePageOther").on("click", function () {
-        if ($("#top_tabs li").length > 2 && $("#top_tabs li.layui-this cite").text() != "后台首页") {
-            var menu = JSON.parse(window.sessionStorage.getItem("menu"));
-            $("#top_tabs li").each(function () {
-                if ($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")) {
-                    element.tabDelete("bodyTab", $(this).attr("lay-id")).init();
-                    //此处将当前窗口重新获取放入session，避免一个个删除来回循环造成的不必要工作量
-                    for (var i = 0; i < menu.length; i++) {
-                        if ($("#top_tabs li.layui-this cite").text() == menu[i].title) {
-                            menu.splice(0, menu.length, menu[i]);
-                            window.sessionStorage.setItem("menu", JSON.stringify(menu));
-                        }
-                    }
-                }
-            })
-        } else if ($("#top_tabs li.layui-this cite").text() == "后台首页" && $("#top_tabs li").length > 1) {
-            $("#top_tabs li").each(function () {
-                if ($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")) {
-                    element.tabDelete("bodyTab", $(this).attr("lay-id")).init();
-                    window.sessionStorage.removeItem("menu");
-                    menu = [];
-                    window.sessionStorage.removeItem("curmenu");
-                }
-            })
-        } else {
-            layer.msg("没有可以关闭的窗口了@_@");
-        }
-        //渲染顶部窗口
-        tab.tabMove();
-    })
-
-    //关闭全部
-    $(".closePageAll").on("click", function () {
-        if ($("#top_tabs li").length > 1) {
-            $("#top_tabs li").each(function () {
-                if ($(this).attr("lay-id") != '') {
-                    element.tabDelete("bodyTab", $(this).attr("lay-id")).init();
-                    window.sessionStorage.removeItem("menu");
-                    menu = [];
-                    window.sessionStorage.removeItem("curmenu");
-                }
-            })
-        } else {
-            layer.msg("没有可以关闭的窗口了@_@");
-        }
-        //渲染顶部窗口
-        tab.tabMove();
     })
 
 })
