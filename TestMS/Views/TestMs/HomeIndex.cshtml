@@ -90,6 +90,69 @@
             </a>
         </div>
     </div>
+    <blockquote class="layui-elem-quote main_btn">
+        <p>我们都知道，为了构成一个低耦合，高内聚的应用程序，我们会分层，拿一个WPF程序来说，我们通过MVVM模式去将一个应用程序的分成View-ViewModel-Model，大大消除之前业务逻辑和界面元素之间存在的高耦合，使我们后台开发人员可以将重点更放在业务逻辑层面上，属于UI界面的则可以交给更专业的UI人员。</p>
+        <p class="layui-blue">PS：但是一个应用程序是由不同的业务模块来组合而成，我们理想状态下，每个业务模块拥有着能够独立的功能，并且和其他业务模块之间的是低耦合关系的，且每个业务模块可以单独用来开发,测试和部署，这样组成的应用程序是非常容易扩展，测试和维护</p>
+    </blockquote>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md4">
+            <blockquote class="layui-elem-quote title">系统信息</blockquote>
+            <table id="SysRefInfo" class="layui-table magt0">
+                <colgroup>
+                    <col width="150">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>当前版本</td>
+                        <td class="version"></td>
+                    </tr>
+                    <tr>
+                        <td>开发作者</td>
+                        <td class="author"></td>
+                    </tr>
+                    <tr>
+                        <td>网站首页</td>
+                        <td class="homePage"></td>
+                    </tr>
+                    <tr>
+                        <td>服务器环境</td>
+                        <td class="server"></td>
+                    </tr>
+                    <tr>
+                        <td>数据库版本</td>
+                        <td class="dataBase"></td>
+                    </tr>
+                    <tr>
+                        <td>最大上传限制</td>
+                        <td class="maxUpload"></td>
+                    </tr>
+                    <tr>
+                        <td>当前用户权限</td>
+                        <td class="userRights"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="layui-col-md8">
+            <blockquote class="layui-elem-quote title">流量统计</blockquote>
+            <div id="pvNums"></div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote title">最新文章 <i class="layui-icon layui-red">&#xe756;</i></blockquote>
+            <table class="layui-table mag0" lay-skin="line">
+                <colgroup>
+                    <col>
+                    <col width="110">
+                </colgroup>
+                <tbody class="hot_news"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/js/echarts.min.js"></script>
     <script type="text/javascript" src="~/testms/layui/layui.js"></script>
     <script type="text/javascript" src="~/testms/js/HomeIndex.js"></script>
 </body>

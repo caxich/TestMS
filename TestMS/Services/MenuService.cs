@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using TestMS.Entities;
 using TestMS.Interfaces;
@@ -16,9 +17,12 @@ namespace TestMS.Services
             _ef = ef;
         }
 
-        public List<Menu> List()
+        public Task<List<Menu>> ListAsync()
         {
-            return _ef.Menus.ToList();
+            return Task.Run(() =>
+            {
+                return _ef.Menus.ToList();
+            });
         }
     }
 }

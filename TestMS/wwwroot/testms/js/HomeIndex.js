@@ -47,5 +47,92 @@ layui.use(['form', 'element', 'layer', 'jquery'], function () {
         parent.addTab($(this));
     })
 
+    //填充数据方法
+    function fillParameter(data) {
+        //判断字段数据是否存在
+        function nullData(data) {
+            if (data == '' || data == "undefined") {
+                return "未定义";
+            } else {
+                return data;
+            }
+        }
+        $(".version").text(nullData(data.version));      //当前版本
+        $(".author").text(nullData(data.author));        //开发作者
+        $(".homePage").text(nullData(data.homePage));    //网站首页
+        $(".server").text(nullData(data.server));        //服务器环境
+        $(".dataBase").text(nullData(data.dataBase));    //数据库版本
+        $(".maxUpload").text(nullData(data.maxUpload));    //最大上传限制
+        $(".userRights").text(nullData(data.userRights));//当前用户权限
+    }
+
+    //系统信息
+    var data = {
+        version: 'V1.0.1',
+        author: 'layer',
+        homePage: 'homeIndex.html',
+        server: 'windows server 2012',
+        dataBase: 'sqlserver 2012',
+        maxUpload: '4MB',
+        userRights: '系统管理员'
+    };
+    fillParameter(data);
+
+    var news =
+        [{ newsName: 'CAP发布3.0 正式版', newsTime: '2020-1-2' },
+        { newsName: 'CAP发布3.1 正式版', newsTime: '2020-1-22' },
+        { newsName: 'CAP发布3.2 正式版', newsTime: '2020-1-23' }];
+
+    function outNews(data) {
+        var newsHtml = '';
+        for (var i = 0; i < news.length; i++) {
+            newsHtml += '<tr>'
+                + '<td align="left"><a href="javascript:;"> ' + data[i].newsName + '</a></td>'
+                + '<td>' + data[i].newsTime.substring(0, 8) + '</td>'
+                + '</tr>';
+        }
+        $('.hot_news').html(newsHtml);
+    }
+
+    outNews(news);
 })
+
+
+var refHeight = window.getComputedStyle(document.getElementById('SysRefInfo')).getPropertyValue('height');
+console.log(refHeight);
+//debugger;
+var chartDiv = document.getElementById('pvNums');
+chartDiv.style.height = refHeight;
+var myChart = echarts.init(chartDiv);
+
+// 指定图表的配置项和数据
+var option = {
+    title: {
+        text: ''
+    },
+    tooltip: {},
+    grid: {
+        bottom: 26,
+        top: 20,
+        left: 30,
+        right: 30
+    },
+    legend: {
+        data: ['访问量']
+    },
+    xAxis: {
+        type: 'category',
+        data: ["Spring", "Netbox", "TiDB", "GManager", "CRP", "Ionic", "Netbox", "TiDB", "GManager", "CRP", "Ionic", "Netbox", "TiDB", "GManager", "CRP", "Ionic"]
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        name: '访问量',
+        type: 'line',
+        data: [5, 20, 30, 10, 10, 20, 10, 28, 16, 20, 15, 20, 16, 20, 15, 20]
+    }]
+};
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
 

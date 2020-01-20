@@ -8,6 +8,6 @@ namespace TestMS.Interfaces
 {
     public interface IMenuService
     {
-        List<Menu> List();
+        Task<List<Menu>> ListAsync();
     }
 }
