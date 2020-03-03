@@ -95,6 +95,15 @@
         return false;
     })
 
+    form.on('submit(searchClear)', function (data) {
+        tableIns.reload({
+            where: {
+                "search": ""
+            }
+        });
+        $('#search').val("");
+    })
+
     //列表按钮操作
     table.on('tool(newsList)', function (obj) {
         var layEvent = obj.event;
