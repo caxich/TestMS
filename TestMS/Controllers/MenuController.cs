@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TestMS.Entities;
 using TestMS.Interfaces;
+using TestMS.Models.Dtos;
 
 namespace TestMS.Controllers
 {
@@ -22,9 +23,8 @@ namespace TestMS.Controllers
             return View();
         }
 
-        public async Task<List<Menu>> GetMenuTree()
+        public async Task<List<MenuResp>> GetMenuTree()
         {
-            Console.WriteLine($"主线程为{Thread.CurrentThread.ManagedThreadId}");
             var list = await _menuService.ListAsync();
             return list;
         }
