@@ -7,19 +7,22 @@ using System.Threading.Tasks;
 using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Models.Dtos;
+using TMS.Dapper;
+using TMS.Dapper.interfaces;
 using TMS.Redis.Interfaces;
 
 namespace TestMS.Services
 {
-    public class MenuService : IMenuService
+    public class MenuService : RepositoryBase<Menu>, IMenuService
     {
         private readonly EfContext _ef;
         private readonly IMapper _mapper;
         //private readonly ICacheClient _cacheclient;
 
-        public MenuService(EfContext ef, IMapper mapper
+        public MenuService(EfContext ef, IMapper mapper,
+            IDbConnectionFactory connectionFactory
             //ICacheClient cacheclient
-            )
+            ) : base(connectionFactory)
         {
             _ef = ef;
             _mapper = mapper;
@@ -35,7 +38,9 @@ namespace TestMS.Services
             //_cacheclient.Push("list1", "126");
             return Task.Run(() =>
             {
-                var menus = _mapper.Map<List<Menu>, List<MenuResp>>(_ef.Menus.ToList());
+                //var tmeps = _ef.Menus.ToList();
+                var tmeps = base.Query().ToList();
+                var menus = _mapper.Map<List<Menu>, List<MenuResp>>(tmeps);
                 var result = menus.Where(x => x.ParentId == "0");
                 foreach (var item in result)
                 {

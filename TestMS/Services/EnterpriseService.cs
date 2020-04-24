@@ -10,18 +10,22 @@ using TestMS.Models.Publics;
 using TMS.Redis.Interfaces;
 using Dapper;
 using System.Data.SqlClient;
+using TMS.Dapper.interfaces;
+using TMS.Dapper;
 
 namespace TestMS.Services
 {
-    public class EnterpriseService : IEnterpriseService
+    public class EnterpriseService : RepositoryBase<Enterprise>, IEnterpriseService
     {
         private readonly EfContext _efContext;
         private readonly IMapper _mapper;
         //private readonly ICacheClient _cacheclient;
 
-        public EnterpriseService(EfContext efContext, IMapper mapper 
+
+        public EnterpriseService(EfContext efContext, IMapper mapper,
+            IDbConnectionFactory connectionFactory
             //ICacheClient cacheclient
-            )
+            ) : base(connectionFactory)
         {
             _efContext = efContext;
             _mapper = mapper;
@@ -94,9 +98,9 @@ namespace TestMS.Services
             var result = new ResultModel<EnterprisesResp>();
 
             var dplist = new List<Enterprise>();
-            using (var _db = new SqlConnection("Server=.;Database=TestMS;uid=sa;pwd=qazplm;MultipleActiveResultSets=true"))
+            using (var _db = Connection())
             {
-                dplist = _db.Query<Enterprise>("select * from TMS_Enterprise").ToList();
+                dplist = base.Query().ToList();
             }
 
             var resultList = _mapper.Map<List<Enterprise>, List<EnterprisesResp>>(dplist.ToList());

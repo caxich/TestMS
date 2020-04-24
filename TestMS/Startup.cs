@@ -16,6 +16,8 @@ using AutoMapper;
 using TestMS.Tools;
 using TMS.Redis.Interfaces;
 using TMS.Redis;
+using TMS.Dapper.interfaces;
+using TMS.Dapper;
 
 namespace TestMS
 {
@@ -45,6 +47,8 @@ namespace TestMS
             //services.AddSingleton<ICacheClient>(a => new RedisClient(Configuration["Redis:Default"]));
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<IEnterpriseService, EnterpriseService>();
+
+            services.AddTransient<IDbConnectionFactory>(_ => new DbConnectionFactory(Configuration["Connectionstring:Default"]));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
