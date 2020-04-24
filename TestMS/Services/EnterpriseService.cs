@@ -7,6 +7,9 @@ using TestMS.Entities;
 using TestMS.Interfaces;
 using TestMS.Models.Dtos;
 using TestMS.Models.Publics;
+using TMS.Redis.Interfaces;
+using Dapper;
+using System.Data.SqlClient;
 
 namespace TestMS.Services
 {
@@ -14,11 +17,15 @@ namespace TestMS.Services
     {
         private readonly EfContext _efContext;
         private readonly IMapper _mapper;
+        //private readonly ICacheClient _cacheclient;
 
-        public EnterpriseService(EfContext efContext,IMapper mapper)
+        public EnterpriseService(EfContext efContext, IMapper mapper 
+            //ICacheClient cacheclient
+            )
         {
             _efContext = efContext;
             _mapper = mapper;
+            //_cacheclient = cacheclient;
         }
 
         public ResultModel<Enterprise> Add(EnterpriseCreateDto dto)
@@ -77,6 +84,7 @@ namespace TestMS.Services
 
         public ResultModel<EnterprisesResp> List(PageQueryModel query)
         {
+            //var str = _cacheclient.Get("test");
             var list = _efContext.Enterprises.AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
@@ -84,11 +92,23 @@ namespace TestMS.Services
             }
 
             var result = new ResultModel<EnterprisesResp>();
-            var resultList = _mapper.Map<List<Enterprise>, List<EnterprisesResp>>(list.ToList());
+
+            var dplist = new List<Enterprise>();
+            using (var _db = new SqlConnection("Server=.;Database=TestMS;uid=sa;pwd=qazplm;MultipleActiveResultSets=true"))
+            {
+                dplist = _db.Query<Enterprise>("select * from TMS_Enterprise").ToList();
+            }
+
+            var resultList = _mapper.Map<List<Enterprise>, List<EnterprisesResp>>(dplist.ToList());
+            //resultList.FirstOrDefault().Name = str;
+            //resultList[1].Name = _cacheclient.Pop("list1");
+            //resultList[2].Name = _cacheclient.Pop("list1");
+            //resultList[3].Name = _cacheclient.Pop("list1");
+            //resultList[4].Name = _cacheclient.Pop("list1");
             result.Data.AddRange(resultList.Skip((query.Page - 1) * query.Limit).Take(query.Limit).ToList());
             result.Code = 0;
             result.Msg = "成功";
-            result.Count = list.Count();
+            result.Count = dplist.Count();
             return result;
         }
 

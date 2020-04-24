@@ -14,6 +14,8 @@ using TestMS.Interfaces;
 using TestMS.Services;
 using AutoMapper;
 using TestMS.Tools;
+using TMS.Redis.Interfaces;
+using TMS.Redis;
 
 namespace TestMS
 {
@@ -40,6 +42,7 @@ namespace TestMS
 
             services.AddAutoMapper(typeof(MapperProfile));
 
+            //services.AddSingleton<ICacheClient>(a => new RedisClient(Configuration["Redis:Default"]));
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<IEnterpriseService, EnterpriseService>();
 

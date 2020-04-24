@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
@@ -26,6 +27,11 @@
     <Folder Include="wwwroot\testms\js\models\" />
     <Folder Include="wwwroot\testms\html\" />
     <Folder Include="wwwroot\testms\json\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\TMS.Redis\TMS.Redis.csproj" />
   </ItemGroup>
 
 </Project>
