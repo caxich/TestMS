@@ -11,7 +11,7 @@ namespace TestMS.Entities.EntityConfig
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
-            builder.ToTable("TMS_Menus");
+            builder.ToTable("TMS_Menu");
             builder.Property(x => x.Title).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Icon).HasMaxLength(50);
             builder.Property(x => x.Href).IsRequired().HasMaxLength(200);

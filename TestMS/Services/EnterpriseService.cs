@@ -83,7 +83,11 @@ namespace TestMS.Services
 
         public List<Enterprise> List()
         {
-            return _efContext.Enterprises.ToList();
+            //return _efContext.Enterprises.ToList();
+            using (var conn = Connection())
+            {
+                return base.Query().ToList();
+            }
         }
 
         public ResultModel<EnterprisesResp> List(PageQueryModel query)

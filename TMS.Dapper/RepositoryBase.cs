@@ -28,7 +28,7 @@ namespace TMS.Dapper
         {
             using (var conn = Connection())
             {
-                var sql = $"select * from [TMS_{typeof(T).Name}s]";
+                var sql = $"select * from [TMS_{typeof(T).Name}]";
                 return conn.Query<T>(sql).ToArray();
             }
         }
